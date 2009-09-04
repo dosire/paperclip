@@ -194,6 +194,14 @@ module Paperclip
         file.rewind
         return file
       end
+      
+      def perm(style)
+        if style == :original
+          'private'
+        else
+          @s3_permissions
+        end
+      end
 
       def flush_writes #:nodoc:
         @queued_for_write.each do |style, file|
@@ -203,7 +211,8 @@ module Paperclip
                                     file,
                                     bucket_name,
                                     {:content_type => instance_read(:content_type),
-                                     :access => @s3_permissions,
+                                     # Protect orginal images :access => @s3_permissions,
+                                     :access => perm(style),
                                     }.merge(@s3_headers))
           rescue AWS::S3::ResponseError => e
             raise
