@@ -95,6 +95,7 @@ module Paperclip
           ))
         end
         Paperclip.interpolates(:s3_alias_url) do |attachment, style|
+# Before https://github.com/thoughtbot/paperclip/commit/5e86a99b23554d1a3b61e8422b301413df3728da
 # <<<<<<< HEAD
 #           "#{attachment.s3_protocol}://#{attachment.s3_host_alias}/#{attachment.path(style).gsub(%r{^/}, "")}"
 #         end
